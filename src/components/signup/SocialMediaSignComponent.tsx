@@ -1,18 +1,15 @@
-
-
-
 import { useState } from "react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 
-interface SocialMediaLoginComponentProps {
+interface SocialMediaSignComponentProps {
 	onGoogleLogin: () => void;
 	onFacebookLogin: () => void;
 }
 
-function SocialMediaLoginComponent({
+function SocialMediaSignComponent({
 	onGoogleLogin,
 	onFacebookLogin,
-}: SocialMediaLoginComponentProps) {
+}: SocialMediaSignComponentProps) {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleGoogleLogin = () => {
@@ -26,35 +23,33 @@ function SocialMediaLoginComponent({
 	};
 
 	return (
-		<div className="flex flex-row items-baseline justify-start w-full h-full gap-3 ml-6 space-y-4 text-start">
+		<div className="flex flex-row items-baseline justify-center w-full h-full gap-3 ml-8 space-y-4 text-center">
 			<div className="shadow-xl">
 				<button
-					className={`bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 ${
+					className={`bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 w-[7rem] ${
 						isLoading ? "opacity-50 cursor-wait" : "hover:bg-red-700"
 					} lg:text-lg`}
 					onClick={handleGoogleLogin}
 					disabled={isLoading}
 				>
-					<FaGoogle size={23} />
-					<span className="hidden lg:block">Login with Google</span>
-					<span className="lg:hidden">Google</span>
+					<FaGoogle size={20} />
+					<span className="">Google</span>
 				</button>
 			</div>
 			<div className="shadow-xl">
 				<button
-					className={`bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 ${
+					className={`bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 w-[7rem]${
 						isLoading ? "opacity-50 cursor-wait" : "hover:bg-blue-600"
 					} lg:text-lg`}
 					onClick={handleFacebookLogin}
 					disabled={isLoading}
 				>
-					<FaFacebook size={23} />
-					<span className="hidden lg:block">Login with Facebook</span>
-					<span className="lg:hidden">Facebook</span>
+					<FaFacebook size={20} />
+					<span className="">Facebook</span>
 				</button>
 			</div>
 		</div>
 	);
 }
 
-export default SocialMediaLoginComponent;
+export default SocialMediaSignComponent;

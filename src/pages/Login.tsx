@@ -10,7 +10,7 @@ const Login = () => {
 				{/* Left Main Login Page */}
 				<div className="w-1/2 h-full max-h-screen bg-[#FFFBF7] max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:flex-col">
 					<div className="flex items-center justify-start pb-2 ml-4">
-						<div className="flex items-center gap-2 mt-12 ml-2 mr-8">
+						<div className="flex items-center gap-2 mt-16 ml-2 mr-8">
 							<img
 								className="w-8 h-8 rounded-2xl lg:w-15"
 								src={logo}
@@ -62,7 +62,7 @@ const Login = () => {
 							borderBottom: "2px solid #743ad5",
 							borderRadius: "0 0 0px 0px",
 						}}
-						className="object-cover object-top w-full h-auto rounded-lg hover:scale-[1.2]"
+						className="object-cover object-top w-full h-auto rounded-lg"
 					/>
 				</div>
 				
