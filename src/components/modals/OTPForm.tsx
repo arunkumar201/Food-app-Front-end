@@ -3,8 +3,8 @@ import { GrClose } from "react-icons/gr";
 import { FiRefreshCw } from "react-icons/fi";
 
 interface OtpFormProps {
-  isOpenOtpModal: boolean;
-  setOpenOtpModal: React.Dispatch<React.SetStateAction<boolean>>;
+	isOpenOtpModal: boolean;
+	setOpenOtpModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const OtpForm: React.FC<OtpFormProps> = ({
@@ -67,14 +67,14 @@ export const OtpForm: React.FC<OtpFormProps> = ({
 				<div
 					className={`w-full h-full flex flex-col justify-center items-center fixed top-0 left-0 right-0 z-50 rounded-xl`}
 				>
-				<span className="relative z-20 left-[8rem] -bottom-11">
-					<button
-						className="float-right p-1 rounded hover:bg-gray-200"
-						onClick={() => setOpenOtpModal(false)}
+					<span className="relative z-20 left-[8rem] -bottom-11">
+						<button
+							className="float-right p-1 rounded hover:bg-gray-200"
+							onClick={() => setOpenOtpModal(false)}
 						>
-						<GrClose size={23} />
-					</button>
-						</span>
+							<GrClose size={23} />
+						</button>
+					</span>
 					<div className="p-4 bg-white rounded-lg shadow-lg w-80">
 						<h3 className="mb-4 text-xl font-medium">Verify Your OTP</h3>
 						<form onSubmit={handleSubmit}>

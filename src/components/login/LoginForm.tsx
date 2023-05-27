@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiRefresh } from "react-icons/bi";
 import { IoMdContact } from "react-icons/io";
 import SignUpModal from "../signup/SignupModal";
+import { useSignIn } from "../../Hooks/React-hooks/useSignIn";
 
 <div className="bg-[url(`${foodbg}`)]"></div>;
 function LoginForm() {
@@ -14,9 +15,11 @@ function LoginForm() {
 	const [otp, setOtp] = useState("");
 	const [showModal, setShowModal] = useState(false);
 	const [isPhoneLogin, setIsPhoneLogin] = useState(false);
+	const { signInValues, handleInputChange, handleSignIn, error, isLoading } =
+		useSignIn();
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log({ email, password });
+		handleSignIn();
 	};
 
 	const isValidEmail = () => {
@@ -26,9 +29,10 @@ function LoginForm() {
 	};
 
 	const isValidPassword = () => {
-		const re =
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-		return re.test(password);
+		// const re =
+			// /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		// return re.test(password);
+		return true;
 	};
 
 	return (
@@ -79,6 +83,7 @@ function LoginForm() {
 									}}
 									placeholder="Enter your phone number"
 									value={phoneNumber}
+									autoComplete="phoneNumber"
 									onChange={(e) => setPhoneNumber(e.target.value)}
 								/>
 							</div>
@@ -127,15 +132,21 @@ function LoginForm() {
 									className={`w-full px-3 py-2 leading-tight text-gray-700 rounded shadow appearance-none focus:outline-none focus:shadow-outline ${
 										email && !isValidEmail() ? "border-red-500" : ""
 									}`}
-									id="email"
 									type="email"
+									name="email"
+									value={signInValues.email}
+									id="email"
 									placeholder="Your Email Address"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
+									onChange={(e) => {
+										setEmail(e.target.value);
+										handleInputChange(e);
+									}}
 									style={{
 										border: "none",
 										borderBottom: "2px solid #A8EB12",
 									}}
+									autoComplete="username"
+									required
 								/>
 								{email && !isValidEmail() && (
 									<p className="mt-1 text-sm text-red-500">
@@ -156,14 +167,20 @@ function LoginForm() {
 											password && !isValidPassword() ? "border-red-500" : ""
 										}`}
 										id="password"
+										name="password"
+										value={signInValues.password}
 										type={showPassword ? "text" : "password"}
 										placeholder="Enter your password"
-										value={password}
 										style={{
 											border: "none",
 											borderBottom: "2px solid #A8EB12",
 										}}
-										onChange={(e) => setPassword(e.target.value)}
+										onChange={(e) => {
+											setPassword(e.target.value);
+											handleInputChange(e);
+										}}
+										autoComplete="new-password"
+										required
 									/>
 									<button
 										type="button"
@@ -173,6 +190,7 @@ function LoginForm() {
 										{showPassword ? <FaEyeSlash /> : <FaEye />}
 									</button>
 								</div>
+
 								{password && !isValidPassword() && (
 									<p className="mt-1 text-sm text-red-500">
 										Password must contain at least 8 characters, one uppercase
@@ -207,7 +225,11 @@ function LoginForm() {
 							type="submit"
 							className="bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-2 px-4 rounded-md shadow-md focus:outline-none transform hover:-translate-y-0.5 transition-all"
 						>
-							{isPhoneLogin ? "Verify" : "Login In"}
+							{isLoading ? (
+								<p>Loading...</p>
+							) : (
+								<>{isPhoneLogin ? "Verify" : "Login In"} </>
+							)}
 						</button>
 						<button
 							type="button"
@@ -218,6 +240,7 @@ function LoginForm() {
 						</button>
 					</div>
 				</form>
+				{error && <p>Error: {error}</p>}
 			</div>
 		</>
 	);

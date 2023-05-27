@@ -5,7 +5,7 @@ import HomeNavBar from "./components/navbar/HomeNavBar";
 
 function App() {
 	return (
-		<div className="box-border top-0 right-0 w-full min-h-screen">
+		<div className="box-border top-0 right-0 w-full min-h-screen bg-[#393E46]">
 			<HomeNavBar />
 			<Routes>
 				<Route path="/" element={<Login />} />

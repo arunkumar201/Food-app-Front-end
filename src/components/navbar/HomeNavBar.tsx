@@ -49,21 +49,21 @@ export default function HomeNavBar() {
 					<div className="flex flex-row w-full gap-2 ml-4 md:relative md:left-[1rem] cursor-pointer">
 						<NavLink
 							to="/login"
-							className="text-[#020101] nav-link active-nav-link"
+							className="text-[#393E46] bg-[#EEEEEE] nav-link active-nav-link"
 						>
 							<FiLogIn className="nav-icon" />
 							Log in
 						</NavLink>
 						<span
 							onClick={signUpModalHandler}
-							className=" text-[#020101] nav-link active-nav-link"
+							className=" text-[#393E46] bg-[#EEEEEE] nav-link active-nav-link"
 						>
 							<FiUserPlus className="nav-icon" />
 							Sign up
 						</span>
 						<NavLink
 							to="/new-restaurant"
-							className="text-[#020101] nav-link active-nav-link"
+							className="text-[#393E46] bg-[#EEEEEE] nav-link active-nav-link"
 						>
 							<FiPlusCircle className="nav-icon" />
 							Add Restaurant
@@ -103,6 +103,7 @@ export default function HomeNavBar() {
 			<SignUpModal
 				closeModal={() => setIsModalOpen(false)}
 				showModal={isOpenModal}
+				
 			/>
 		</>
 	);

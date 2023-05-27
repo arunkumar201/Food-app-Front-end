@@ -5,6 +5,12 @@ import { OtpForm } from "../modals/OTPForm";
 import SocialMediaSignComponent from "./SocialMediaSignComponent";
 import {FaUser } from "react-icons/fa";
 import PolicyAgreement from "./PolicyAgreement";
+import { useSignUp } from "../../Hooks/React-hooks/useSignUp";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FiAlertCircle } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../auth/firebase/firebase";
 
 interface SignUpModalProps {
 	closeModal: () => void;
@@ -18,56 +24,155 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 	const [emailError, setEmailError] = useState("");
 	const [passwordError, setPasswordError] = useState("");
 	const [fullName, setFullName] = useState("");
-	const [fullNameError, setFullNameError] = useState("");
+	const [showConfirmPassword,setShowConfirmPassword] = useState(false);
+	const navigate = useNavigate();
+	const {
+		signUpValues,
+		setSignUpValues,
+		handleInputChange,
+		handleSignUp,
+		error,
+		isLoading,
+	} = useSignUp();
+	const [isShowMsg, setIsShowMsg] = useState(false);
 	const [otpModalVisible, setOtpModalVisible] = useState(false);
 	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(event.target.value);
+		handleInputChange(event);
 	};
 	const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setFullName(event.target.value);
+		handleInputChange(event);
 	};
 	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(event.target.value);
+		handleInputChange(event);
 	};
 
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
 	};
-
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-
+	const validateEmail = (email: string): string | undefined => {
 		if (!email) {
-			setEmailError("Please enter your email.");
-			return;
+			return "Please enter your email.";
 		}
 
 		if (!/\S+@\S+\.\S+/.test(email)) {
-			setEmailError("Please enter a valid email address.");
-			return;
+			return "Please enter a valid email address.";
 		}
 
-		setEmailError("");
+		return undefined;
+	};
 
+	const validatePassword = (password: string): string | undefined => {
 		if (!password) {
-			setPasswordError("Please enter your password.");
-			return;
+			return "Please enter your password.";
 		}
 
 		if (password.length < 6) {
-			setPasswordError("Your password must be at least 6 characters long.");
-			return;
+			return "Your password must be at least 6 characters long.";
 		}
 
-		if (!/^[a-zA-Z ]+$/.test(fullName)) {
-			setFullNameError("Please enter a valid full name with only letters.");
+		return undefined;
+	};
+	const isPasswordMatch = (password: string, confirmPassword: string) => {
+		return password === confirmPassword;
+	};
+
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const emailError = validateEmail(email);
+		setEmailError(emailError as string);
+		if (emailError) {
+			toast.error("Invalid email address", {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 			return;
 		}
-
-		setPasswordError("");
-		setFullNameError("");
-	
-		setOtpModalVisible(true);
+		const passwordError = validatePassword(password);
+		setPasswordError(passwordError as string);
+		if (passwordError) {
+			toast.error("Invalid password", {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			return;
+		}
+		const isMatch = isPasswordMatch(password, signUpValues.confirmPassword);
+		if (!isMatch) {
+			toast.error("Password does not match", {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			return;
+		}
+		try {
+			await handleSignUp();
+			// setOtpModalVisible(true);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			toast.error(error, {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		if (!error) {
+			toast.success("Sign up successful,Please Login", {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			navigate(`/profile:${auth.currentUser}`);
+			closeModal();
+		} else {
+			setIsShowMsg(true);
+			setTimeout(() => {
+				setIsShowMsg(false);
+			}, 5000);
+			toast.error("User Already exists!", {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		setFullName("");
+		setEmail("");
+		setPassword("");
+		setSignUpValues({
+			displayName: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+		});
 	};
 
 	return (
@@ -110,8 +215,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 								</label>
 								<input
 									type="email"
+									name="email"
+									value={signUpValues.email}
 									placeholder="Email"
-									value={email}
 									onChange={handleEmailChange}
 									className={`w-full px-3 py-2 mt-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none ${
 										emailError ? "ring-red-500" : "focus:ring-blue-500"
@@ -120,6 +226,8 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 										border: "none",
 										borderBottom: "2px solid #A8EB12",
 									}}
+									required
+									autoFocus
 								/>
 								{emailError && (
 									<p className="mt-2 text-red-500">{emailError}</p>
@@ -135,20 +243,18 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 								</label>
 								<input
 									type="text"
+									name="displayName"
 									placeholder="Full Name"
-									value={fullName}
+									value={signUpValues.displayName}
 									onChange={handleFullNameChange}
-									className={`w-full px-3 py-2 mt-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none ${
-										fullNameError ? "ring-red-500" : "focus:ring-blue-500"
-									}`}
+									className={`w-full px-3 py-2 mt-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none 
+									`}
 									style={{
 										border: "none",
 										borderBottom: "2px solid #A8EB12",
 									}}
+									autoComplete="username"
 								/>
-								{fullNameError && (
-									<p className="mt-2 text-red-500">{fullNameError}</p>
-								)}
 							</div>
 
 							<div className="relative my-6">
@@ -160,8 +266,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 								</label>
 								<input
 									type={showPassword ? "text" : "password"}
-									placeholder="Password"
-									value={password}
+									name="password"
+									placeholder="enter password"
+									value={signUpValues.password}
 									onChange={handlePasswordChange}
 									className={`w-full px-3 mt-2 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none  ${
 										passwordError ? "ring-red-500" : "focus:ring-blue-500"
@@ -184,17 +291,74 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 										)}
 									</button>
 								</div>
+
 								{passwordError && (
 									<p className="mt-2 text-red-500">{passwordError}</p>
 								)}
 							</div>
-							<PolicyAgreement/>
+							<div className="relative my-6">
+								<label
+									className="block font-semibold text-gray-400"
+									htmlFor="password"
+								>
+									Confirm Password:
+								</label>
+								<input
+									type={showConfirmPassword ? "text" : "password"}
+									name="confirmPassword"
+									placeholder="Re-enter password "
+									value={signUpValues.confirmPassword}
+									onChange={handleInputChange}
+									className={`w-full px-3 mt-2 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none  ${
+										passwordError ? "ring-red-500" : "focus:ring-blue-500"
+									}`}
+									style={{
+										border: "none",
+										borderBottom: "2px solid #A8EB12",
+									}}
+									autoComplete="new-password"
+								/>
+								<div className="absolute inset-y-0 right-0 flex items-center pr-3 mt-3">
+									<button
+										type="button"
+										className="mt-2 text-gray-500 focus:outline-none"
+										onClick={() => setShowConfirmPassword((prev) => !prev)}
+									>
+										{showConfirmPassword ? (
+											<HiEyeOff size={20} />
+										) : (
+											<HiEye size={20} />
+										)}
+									</button>
+								</div>
+
+								{passwordError && (
+									<p className="mt-2 text-red-500">{passwordError}</p>
+								)}
+							</div>
+							<PolicyAgreement />
 							<div className="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-blue-700 rounded-lg active:bg-blue-600 hover:bg-blue-600 focus:outline-none focus:shadow-outline">
-								<button className="flex flex-row items-center gap-2">
+								<button
+									className="flex flex-row items-center gap-2"
+									disabled={isLoading}
+								>
 									<FaUser />
 									<span>Sign Up</span>
 								</button>
 							</div>
+							{isShowMsg && error && (
+								<div className="flex items-center p-1 mt-3 text-sm text-white bg-red-500 rounded-md justify-evenly">
+									<p>
+										User already exists. Please{" "}
+										<a href="/login" className="underline hover:text-amber-400">
+											login
+										</a>
+									</p>
+									<div className="ml-2">
+										<FiAlertCircle className="w-6 h-6 text-white" />
+									</div>
+								</div>
+							)}
 						</form>
 					</div>
 				</div>
@@ -202,6 +366,15 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 			<OtpForm
 				setOpenOtpModal={setOtpModalVisible}
 				isOpenOtpModal={otpModalVisible}
+			/>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				closeButton={false}
+				pauseOnHover={true}
+				closeOnClick={true}
+				draggable={true}
 			/>
 		</>
 	);
