@@ -6,9 +6,9 @@ const Login = () => {
 	return (
 		<>
 			{/* main Login Div */}
-			<div className="flex w-full h-full">
+			<div className="flex w-full h-[100vh] bg-[#FFFBF7]  md:h-full">
 				{/* Left Main Login Page */}
-				<div className="w-1/2 h-full max-h-screen bg-[#FFFBF7] max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:flex-col">
+				<div className="flex flex-col w-1/2 h-fit max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:flex-col">
 					<div className="flex items-center justify-start pb-2 ml-4">
 						<div className="flex items-center gap-2 mt-16 ml-2 mr-8">
 							<img
@@ -49,10 +49,11 @@ const Login = () => {
 					</div>
 
 					{/* Login Form */}
-					<LoginForm />
-				
+					<div className="flex items-center justify-center w-full h-full">
+						<LoginForm />
+					</div>
 				</div>
-				<div className="hidden w-1/2 max-h-screen overflow-hidden rounded md:block">
+				<div className="hidden w-1/2 h-full overflow-hidden rounded md:block">
 					<img
 						src="https://source.unsplash.com/random/800x1200/?food"
 						alt="Food img"
@@ -62,10 +63,9 @@ const Login = () => {
 							borderBottom: "2px solid #743ad5",
 							borderRadius: "0 0 0px 0px",
 						}}
-						className="object-cover object-top w-full h-auto rounded-lg"
+						className="object-cover object-top w-full h-[100vh] rounded-lg"
 					/>
 				</div>
-				
 			</div>
 		</>
 	);

@@ -32,7 +32,7 @@ export function useSignIn() {
 				signInValues.email,
 				signInValues.password
 			);
-		navigate(`/user:${user?.displayName}`);
+		navigate(`/user/${user?.displayName}`);
 		setSignInValues({
 		email: "",
 		password: "",

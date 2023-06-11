@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiRefresh } from "react-icons/bi";
 import { IoMdContact } from "react-icons/io";
 import SignUpModal from "../signup/SignupModal";
 import { useSignIn } from "../../Hooks/React-hooks/useSignIn";
+import { useNavigate } from "react-router-dom";
 
 <div className="bg-[url(`${foodbg}`)]"></div>;
 function LoginForm() {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
@@ -29,12 +31,21 @@ function LoginForm() {
 	};
 
 	const isValidPassword = () => {
-		// const re =
-			// /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-		// return re.test(password);
-		return true;
+		const re =
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		return re.test(password);
+		// return true;
 	};
 
+	function createAccountHandler(): void {
+		setShowModal(true);
+		navigate("/signup");
+	}
+	useEffect(() => {
+		if (!showModal) {
+			navigate("/login");
+		}
+	}, [showModal, navigate]);
 	return (
 		<>
 			<div>
@@ -43,8 +54,11 @@ function LoginForm() {
 					closeModal={() => setShowModal(false)}
 				/>
 			</div>
-			<div className="shadow-sm ">
-				<form onSubmit={handleSubmit} className="max-w-md mb-3 ml-4 mr-3 ">
+			<div className="w-full h-full shadow-sm">
+				<form
+					onSubmit={handleSubmit}
+					className="h-full max-w-md mb-3 ml-4 mr-3 "
+				>
 					<h2 className="mb-8 text-xl font-bold text-gray-400 text-start max-sm:text-center">
 						{isPhoneLogin ? "Login with Phone" : "Sign In with Email"}
 					</h2>
@@ -215,7 +229,7 @@ function LoginForm() {
 						New to Apna Food?{" "}
 						<span
 							className="ml-1 text-red-500 cursor-pointer"
-							onClick={() => setShowModal(true)}
+							onClick={() => createAccountHandler()}
 						>
 							Create Account
 						</span>

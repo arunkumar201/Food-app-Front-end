@@ -23,7 +23,7 @@ export default function HomeNavBar() {
 
 	return (
 		<>
-			<nav className="fixed flex flex-row items-center justify-between w-full px-6 py-4 mb-2">
+			<nav className="fixed flex flex-row items-center justify-between w-full px-6 py-4 mb-2 h-[7vh]">
 				<div className="flex items-center">
 					<NavLink to="/" className="text-2xl font-bold text-gray-800">
 						<img
@@ -103,7 +103,6 @@ export default function HomeNavBar() {
 			<SignUpModal
 				closeModal={() => setIsModalOpen(false)}
 				showModal={isOpenModal}
-				
 			/>
 		</>
 	);
