@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../auth/firebase/firebase";
+import { toast } from "react-toastify";
 
 interface SignUpValues {
 	displayName: string;
@@ -47,7 +48,7 @@ export function useSignUp() {
 				await updateProfile(user, {
 					displayName: signUpValues.displayName,
 				});
-			}
+			}			
 		} catch (error) {
 			if (typeof error === "string") {
 				setError(error);

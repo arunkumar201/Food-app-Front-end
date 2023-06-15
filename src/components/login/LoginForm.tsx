@@ -5,6 +5,7 @@ import { IoMdContact } from "react-icons/io";
 import SignUpModal from "../signup/SignupModal";
 import { useSignIn } from "../../Hooks/React-hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
+import ForgotPassword from "../modals/ForgotPassword";
 
 <div className="bg-[url(`${foodbg}`)]"></div>;
 function LoginForm() {
@@ -14,10 +15,11 @@ function LoginForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [countryCode, setCountryCode] = useState("+91");
 	const [phoneNumber, setPhoneNumber] = useState("");
+	const [forgotModel, setForgotModel] = useState<boolean>(false);
 	const [otp, setOtp] = useState("");
 	const [showModal, setShowModal] = useState(false);
 	const [isPhoneLogin, setIsPhoneLogin] = useState(false);
-	const { signInValues, handleInputChange, handleSignIn, error, isLoading } =
+	const { signInValues, handleInputChange, handleSignIn, isLoading } =
 		useSignIn();
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -159,7 +161,7 @@ function LoginForm() {
 										border: "none",
 										borderBottom: "2px solid #A8EB12",
 									}}
-									autoComplete="username"
+									
 									required
 								/>
 								{email && !isValidEmail() && (
@@ -193,7 +195,7 @@ function LoginForm() {
 											setPassword(e.target.value);
 											handleInputChange(e);
 										}}
-										autoComplete="new-password"
+										
 										required
 									/>
 									<button
@@ -222,7 +224,12 @@ function LoginForm() {
 						</div>
 						<div className="flex items-center cursor-pointer">
 							<IoMdContact className="mr-1" size={17} />
-							<span className="text-sm text-[#EF4F5F]">Forgot Password?</span>
+							<span
+								className="text-sm text-[#EF4F5F]"
+								onClick={() => setForgotModel(true)}
+							>
+								Forgot Password?
+							</span>
 						</div>
 					</div>
 					<span className="flex justify-end w-full mb-0 ml-1 text-sm text-gray-600">
@@ -254,8 +261,10 @@ function LoginForm() {
 						</button>
 					</div>
 				</form>
-				{error && <p>Error: {error}</p>}
 			</div>
+			{forgotModel && (
+				<ForgotPassword isOpen={forgotModel} setIsOpen={setForgotModel} />
+			)}
 		</>
 	);
 }

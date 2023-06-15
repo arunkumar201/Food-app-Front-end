@@ -3,7 +3,7 @@ import { FiSearch, FiHome, FiUser } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 const BottomNavBar = () => {
 	return (
-		<div className="fixed bottom-0 left-0 w-full h-16 bg-gray-100 border-t border-gray-200">
+		<div className="fixed bottom-0 left-0 w-full h-16 bg-[#EEEEEE] border-t border-gray-200">
 			<div className="grid h-full max-w-lg grid-cols-4 mx-auto">
 				<Link
 					to="/"

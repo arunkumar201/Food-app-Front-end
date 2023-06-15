@@ -1,3 +1,4 @@
+import { CgSpinner } from "react-icons/cg"; 
 import React, { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { HiEye, HiEyeOff } from "react-icons/hi";
@@ -11,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FiAlertCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../auth/firebase/firebase";
+import SocialMediaLoginComponent from "../login/SocialMediaLoginComponent";
 
 interface SignUpModalProps {
 	closeModal: () => void;
@@ -147,7 +149,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 				draggable: true,
 				progress: undefined,
 			});
-			navigate(`/profile:${auth.currentUser}`);
+			setTimeout(()=>{
+				navigate(`/profile/:${auth.currentUser}`);
+			},2500)
 			closeModal();
 		} else {
 			setIsShowMsg(true);
@@ -196,12 +200,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 						<h3 className="text-xl font-bold text-gray-400">Create Account</h3>
 						<span className="relative w-full h-full right-[2rem] max-sm:right-[3rem]">
 							<SocialMediaSignComponent
-								onGoogleLogin={function (): void {
-									throw new Error("Function not implemented.");
-								}}
-								onFacebookLogin={function (): void {
-									throw new Error("Function not implemented.");
-								}}
+								
 							/>
 						</span>
 
@@ -343,7 +342,12 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ closeModal, showModal }) => {
 									disabled={isLoading}
 								>
 									<FaUser />
-									<span>Sign Up</span>
+									<span>
+										Sign Up
+										{isLoading && (
+											<CgSpinner size={20} className="inline ml-2 animate-spin" />
+										)}
+									</span>
 								</button>
 							</div>
 							{isShowMsg && error && (

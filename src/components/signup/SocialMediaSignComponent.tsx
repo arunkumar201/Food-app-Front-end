@@ -1,25 +1,41 @@
-import { useState } from "react";
+import { signInWithPopup } from "firebase/auth";
+import { useState, useContext } from "react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { auth, fbProvider, gProvider } from "../../auth/firebase/firebase";
+import { useNavigate } from "react-router-dom";
+import { UserContext, UserContextType } from "../../auth/AuthProvider";
 
-interface SocialMediaSignComponentProps {
-	onGoogleLogin: () => void;
-	onFacebookLogin: () => void;
-}
-
-function SocialMediaSignComponent({
-	onGoogleLogin,
-	onFacebookLogin,
-}: SocialMediaSignComponentProps) {
+function SocialMediaSignComponent() {
+	const navigate = useNavigate();
+	const { user }: UserContextType = useContext(UserContext);
 	const [isLoading, setIsLoading] = useState(false);
-
-	const handleGoogleLogin = () => {
+	const handleGoogleLogin = async () => {
 		setIsLoading(true);
-		onGoogleLogin();
+
+		try {
+			const result = await signInWithPopup(auth, gProvider);
+			if (result.user.emailVerified) {
+				navigate(`/user/${user?.displayName}`);
+			}
+		} catch (error) {
+			console.log("catch");
+		} finally {
+			setIsLoading(false);
+		}
 	};
-
-	const handleFacebookLogin = () => {
+	const handleFacebookLogin = async () => {
 		setIsLoading(true);
-		onFacebookLogin();
+
+		try {
+			console.log("try");
+			await signInWithPopup(auth, fbProvider);
+		} catch (error) {
+			console.log("catch");
+
+			console.log(error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -27,7 +43,7 @@ function SocialMediaSignComponent({
 			<div className="shadow-xl">
 				<button
 					className={`bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 w-[7rem] ${
-						isLoading ? "opacity-50 cursor-wait" : "hover:bg-red-700"
+						isLoading ? "opacity-50 " : "hover:bg-red-700"
 					} lg:text-lg`}
 					onClick={handleGoogleLogin}
 					disabled={isLoading}
@@ -39,7 +55,7 @@ function SocialMediaSignComponent({
 			<div className="shadow-xl">
 				<button
 					className={`bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 w-[7rem]${
-						isLoading ? "opacity-50 cursor-wait" : "hover:bg-blue-600"
+						isLoading ? "opacity-50 " : "hover:bg-blue-600"
 					} lg:text-lg`}
 					onClick={handleFacebookLogin}
 					disabled={isLoading}

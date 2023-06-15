@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { Auth, FacebookAuthProvider, GoogleAuthProvider, getAuth } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: import.meta.env?.VITE_APP_FIREBASE_API_KEY,
@@ -10,7 +10,8 @@ const firebaseConfig = {
 	appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
 	measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID,
 };
-
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth: Auth = getAuth(app);
 export { auth };
+export const gProvider = new GoogleAuthProvider();
+export const fbProvider = new FacebookAuthProvider();

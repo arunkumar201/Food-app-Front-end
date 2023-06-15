@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import HomeNavBar from "./components/navbar/HomeNavBar";
 import UserHomePage from "./components/features/User/UserHomePage";
+import ForgotPassword from "./components/modals/ForgotPassword";
 
 function App() {
 	const location = useLocation();
@@ -16,6 +17,7 @@ function App() {
 				<Route path="/signup" element={<Login />} />
 				<Route path="/user/:userName" element={<UserHomePage />} />
 				<Route path="*" element={<NotFound />} />
+				
 			</Routes>
 		</div>
 	);

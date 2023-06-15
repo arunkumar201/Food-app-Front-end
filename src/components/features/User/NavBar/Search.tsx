@@ -32,7 +32,7 @@ export const Search: React.FC<SearchBarProps> = ({ items = [] }) => {
 
 	return (
 		<div className="relative" ref={inputRef}>
-			<div className="flex items-center">
+			<div className="flex items-center lg:justify-center">
 				<div className="relative">
 					<span className="absolute inset-y-0 left-0 flex items-center pl-3">
 						<FaSearch className="w-5 h-5 text-gray-400" />
@@ -46,15 +46,6 @@ export const Search: React.FC<SearchBarProps> = ({ items = [] }) => {
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 				</div>
-				<button
-					type="button"
-					className="p-2 ml-2 text-gray-400 bg-gray-100 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-					onClick={() => setIsOpen(!isOpen)}
-				>
-					<AiOutlineDown
-						className={`${isOpen ? "transform rotate-180" : ""} h-5 w-5`}
-					/>
-				</button>
 			</div>
 			{isOpen && (
 				<div className="absolute left-0 z-10 w-full mt-1 overflow-y-auto bg-white rounded-md shadow-lg top-full max-h-80">

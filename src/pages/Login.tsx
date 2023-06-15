@@ -1,12 +1,23 @@
+import { ToastContainer } from "react-toastify";
 import LoginForm from "../components/login/LoginForm";
 import SocialMediaLoginComponent from "../components/login/SocialMediaLoginComponent";
 import logo from "./../assets/images/login/food-icon.png";
 const Login = () => {
+	const handleGoogleLogin = async () => {
+		setIsLoading(true);
+		try {
+			await auth.signInWithPopup(googleAuthProvider);
+			onGoogleLogin();
+		} catch (error) {
+			console.log("Error signing in with Google:", error);
+		}
+		setIsLoading(false);
+	};
 
 	return (
 		<>
 			{/* main Login Div */}
-			<div className="flex w-full h-[100vh] bg-[#FFFBF7]  md:h-full">
+			<div className="flex w-full h-[100vh] bg1-[#FFFBF7] bg-[#F8EFD4]  md:h-full">
 				{/* Left Main Login Page */}
 				<div className="flex flex-col w-1/2 h-fit max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:flex-col">
 					<div className="flex items-center justify-start pb-2 ml-4">
@@ -31,14 +42,7 @@ const Login = () => {
 					</div>
 					{/* Social Media Login buttons and Break line */}
 					<div>
-						<SocialMediaLoginComponent
-							onGoogleLogin={function (): void {
-								throw new Error("Function not implemented.");
-							}}
-							onFacebookLogin={function (): void {
-								throw new Error("Function not implemented.");
-							}}
-						/>
+						<SocialMediaLoginComponent />
 					</div>
 					{/* break line to login  */}
 					<div className="flex items-center justify-center px-5 my-4">
@@ -67,6 +71,15 @@ const Login = () => {
 					/>
 				</div>
 			</div>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				closeButton={false}
+				pauseOnHover={true}
+				closeOnClick={true}
+				draggable={true}
+			/>
 		</>
 	);
 };
