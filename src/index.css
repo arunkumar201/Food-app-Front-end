@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--scrollbar-thumb-border: 5px solid transparent;
+	--scrollbar-thumb-radius: 100px;
+	--scrollbar-thumb-background: #8070d4;
+	--scrollbar-thumb-background-clip: content-box;
+}
+
+/* Webkit browsers */
+::-webkit-scrollbar-thumb {
+	border: var(--scrollbar-thumb-border);
+	border-radius: var(--scrollbar-thumb-radius);
+	background-color: var(--scrollbar-thumb-background);
+	background-clip: var(--scrollbar-thumb-background-clip);
+}

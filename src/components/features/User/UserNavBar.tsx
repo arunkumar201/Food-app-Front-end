@@ -7,7 +7,7 @@ import BottomNavBar from "./NavBar/BottomNavBar";
 import { ToastContainer } from "react-toastify";
 const UserNavBar = () => {
 	return (
-		<nav className="bg-[#181872]">
+		<nav className="bg-[#181872] fixed w-full z-[1000]">
 			<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between h-16">
 					<Link
@@ -20,7 +20,7 @@ const UserNavBar = () => {
 					<div className="hidden w-full md:flex md:justify-center lg:w-auto">
 						<Search />
 					</div>
-					<div className="flex items-center justify-around gap-8">
+					<div className="flex items-center justify-around gap-8 ml-6">
 						<Cart />
 						<Profile />
 					</div>

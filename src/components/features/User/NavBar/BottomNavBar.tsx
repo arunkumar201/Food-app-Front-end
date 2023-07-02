@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { FiSearch, FiHome, FiUser } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import { useContext } from "react";
+import { UserContext } from "../../../../auth/AuthProvider";
 const BottomNavBar = () => {
+	const { user } = useContext(UserContext);
 	return (
 		<div className="fixed bottom-0 left-0 w-full h-16 bg-[#EEEEEE] border-t border-gray-200">
 			<div className="grid h-full max-w-lg grid-cols-4 mx-auto">
@@ -36,7 +39,16 @@ const BottomNavBar = () => {
 					to="/profile"
 					className="inline-flex flex-col items-center justify-center px-5 border-gray-200 hover:bg-gray-200"
 				>
-					<FiUser className="w-6 h-6 mb-1 text-gray-500 hover:text-blue-500" />
+					{user?.photoURL === null ? (
+						<FiUser className="w-6 h-6 mb-1 text-gray-500 hover:text-blue-500" />
+					) : (
+						<img
+							src={user?.photoURL}
+							alt="user"
+							className="h-10 w-10 rounded-full"
+						/>
+					)}
+
 					<span className="text-sm text-gray-500 hover:text-blue-500">
 						Profile
 					</span>

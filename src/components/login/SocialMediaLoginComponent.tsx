@@ -38,9 +38,8 @@ function SocialMediaLoginComponent() {
 		<div className="flex flex-row items-baseline justify-start w-full h-full gap-3 ml-6 space-y-4 text-start">
 			<div className="shadow-xl">
 				<button
-					className={`bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 ${
-						isLoading ? "opacity-50" : "hover:bg-red-700"
-					} lg:text-lg`}
+					className={`bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2  hover:bg-red-700
+					 lg:text-lg`}
 					onClick={handleGoogleLogin}
 					disabled={isLoading}
 				>
@@ -51,9 +50,9 @@ function SocialMediaLoginComponent() {
 			</div>
 			<div className="shadow-xl">
 				<button
-					className={`bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 ${
-						isLoading ? "opacity-50" : "hover:bg-blue-600"
-					} lg:text-lg`}
+					className={`bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 
+						"hover:bg-blue-600"
+					 lg:text-lg`}
 					onClick={handleFacebookLogin}
 					disabled={isLoading}
 				>

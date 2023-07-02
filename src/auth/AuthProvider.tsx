@@ -1,5 +1,6 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { createContext } from "react";
 import { auth } from "./firebase/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export interface User {
 	displayName: string | null;
@@ -13,23 +14,9 @@ export interface UserContextType {
 export const UserContext = createContext<UserContextType>({ user: null });
 
 const UserProvider = (props: { children: React.ReactNode }) => {
-	const [user, setUser] = useState<User | null>(null);
-
-	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-			if (firebaseUser) {
-				const { displayName, email, photoURL, emailVerified } = firebaseUser;
-				setUser({ displayName, email, photoURL, emailVerified });
-			} else {
-				setUser(null);
-			}
-		});
-
-		return () => unsubscribe();
-	},[])
-
+	const [user] = useAuthState(auth);
 	return (
-		<UserContext.Provider value={{ user }}>
+		<UserContext.Provider value={{user}}>
 			{props.children}
 		</UserContext.Provider>
 	);
