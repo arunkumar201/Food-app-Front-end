@@ -1,12 +1,13 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
-import './index.css'
+import "./index.css";
 import NotFound from "./pages/NotFound";
 import HomeNavBar from "./components/navbar/HomeNavBar";
 import UserHomePage from "./components/features/User/UserHomePage";
 import { useContext } from "react";
 import { UserContext } from "./auth/AuthProvider";
 import Footer from "./components/footer/footer";
+import AddRestaurant from "./pages/AddRestaurant";
 
 function App() {
 	const location = useLocation();
@@ -24,8 +25,9 @@ function App() {
 					element={user ? <UserHomePage /> : <Login />}
 				/>
 				<Route path="*" element={<NotFound />} />
+				<Route path="/new-restaurant" element={<AddRestaurant />} />
 			</Routes>
-			<Footer/>
+			<Footer />
 		</div>
 	);
 }

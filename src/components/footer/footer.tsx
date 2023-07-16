@@ -5,7 +5,7 @@ import logo from "./../../assets/images/foods/logo.png";
 const Footer = () => {
 	return (
 		<>
-			<footer className="flex items-center justify-start flex-col paddings w-full gap-20 bg-white p-8 ">
+			<footer className="flex items-center justify-start flex-col paddings w-full gap-20 bg-gray-600 p-8 ">
 				<div className="flex flex-col gap-12  w-full">
 					<div className="flex items-start flex-col">
 						<img src={logo} alt="logo" width={50} height={35} />
