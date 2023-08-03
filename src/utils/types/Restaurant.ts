@@ -8,3 +8,15 @@ export interface RestaurantBasicsDetailsTypes {
 	phone: string;
 	email: string;
 }
+export interface OpeningHour {
+	day: string;
+	startTime: string;
+	endTime: string;
+}
+
+export interface Restaurant {
+	name: string;
+	cuisine: string;
+	establishment: string;
+	openingHours: OpeningHour[];
+}

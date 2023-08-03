@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import addRestaurantSlice from "../components/features/Restaurant/addRestaurantSlice";
 const store = configureStore({
 	reducer: {
-		cart:()=>null ,
-		products:()=>null,
+		cart: () => null,
+		products: () => null,
+		restaurantForm: addRestaurantSlice,
 	},
 });
 export default store;

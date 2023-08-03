@@ -8,6 +8,8 @@ import { useContext } from "react";
 import { UserContext } from "./auth/AuthProvider";
 import Footer from "./components/footer/footer";
 import AddRestaurant from "./pages/AddRestaurant";
+import RestaurantTypesForm from "./components/restaurant/RestaurantTypesForm";
+import RestaurantBasicsDetails from "./components/restaurant/RestaurantBasicsDetails";
 
 function App() {
 	const location = useLocation();
@@ -25,7 +27,11 @@ function App() {
 					element={user ? <UserHomePage /> : <Login />}
 				/>
 				<Route path="*" element={<NotFound />} />
-				<Route path="/new-restaurant" element={<AddRestaurant />} />
+				<Route path="/new-restaurant" element={<AddRestaurant />}>
+					<Route path="step-1" element={<RestaurantBasicsDetails />} />
+					<Route path="step-2" element={<RestaurantTypesForm />} />
+					<Route path="step-3" element={<AddRestaurant />} />
+				</Route>
 			</Routes>
 			<Footer />
 		</div>

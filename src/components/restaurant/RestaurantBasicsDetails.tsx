@@ -7,8 +7,13 @@ import { RiUserLocationLine } from 'react-icons/ri'
 import { MdFoodBank, MdBusinessCenter, MdOutlineLocationCity } from "react-icons/md";
 import { FcNext } from "react-icons/fc";
 import Stepper from "./Stepper";
+import { setBasics } from "../features/Restaurant/addRestaurantSlice";
+import { useAppDispatch } from "../../store/ReduxHooks";
+import { Outlet, useNavigate } from "react-router-dom";
 const RestaurantBasicsDetails = () => {
-	const [formData, setFormData] = useState<RestaurantBasicsDetailsTypes>({
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const [formData,setFormData] = useState<RestaurantBasicsDetailsTypes>({
 		name: "",
 		cuisine: "",
 		street: "",
@@ -18,12 +23,15 @@ const RestaurantBasicsDetails = () => {
 		phone: "",
 		email: "",
 	});
-
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { id, value } = event.target;
 		setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
 	};
+	const restaurantBasicsDetailsHandler = () => {
+		dispatch(setBasics(formData));
+		navigate('/new-restaurant/step-2')
 
+	}
 	return (
 		<section className="flex flex-col  flex-wrap h-full w-full justify-around items-center bg-gray-900 p-3 rounded-md shadow-xl">
 			{/* column-1  */}
@@ -139,7 +147,7 @@ const RestaurantBasicsDetails = () => {
 			<div className="w-full flex  justify-center md:justify-end md:mt-3 mt-6">
 				<button
 					className="flex items-center px-4 py-2 text-white  bg-gray-800 hover:bg-gray-600 rounded-2xl p-2 transition-colors duration-300 text-base"
-					onClick={() => null}
+					onClick={restaurantBasicsDetailsHandler}
 				>
 					Next Step
 					<FcNext className="ml-2 mr-0 w-6 h-6" />
@@ -147,6 +155,7 @@ const RestaurantBasicsDetails = () => {
 			</div>
 				</div>
 			</div>
+			
 		</section>
 	);
 };
