@@ -30,7 +30,7 @@ function App() {
 				<Route path="/new-restaurant" element={<AddRestaurant />}>
 					<Route path="step-1" element={<RestaurantBasicsDetails />} />
 					<Route path="step-2" element={<RestaurantTypesForm />} />
-					<Route path="step-3" element={<AddRestaurant />} />
+					<Route path="step-3" element={<RestaurantTypesForm />} />
 				</Route>
 			</Routes>
 			<Footer />

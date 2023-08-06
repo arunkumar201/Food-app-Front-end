@@ -57,6 +57,7 @@ const RestaurantTypesForm = () => {
 	const restaurantTypesDetailsHandler = () => {
 		const updatedRestaurantData = { ...formData, openingHours };
 		dispatch(setTypeDetails(updatedRestaurantData));
+		navigation('/new-restaurant/step-3')
 	};
 
 	return (
