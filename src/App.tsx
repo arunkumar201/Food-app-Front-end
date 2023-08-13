@@ -10,13 +10,14 @@ import Footer from "./components/footer/footer";
 import AddRestaurant from "./pages/AddRestaurant";
 import RestaurantTypesForm from "./components/restaurant/RestaurantTypesForm";
 import RestaurantBasicsDetails from "./components/restaurant/RestaurantBasicsDetails";
+import RestaurantImages from "./components/restaurant/RestaurantImages";
 
 function App() {
 	const location = useLocation();
 	const currentURL = location.pathname;
 	const { user } = useContext(UserContext);
 	return (
-		<div className="box-border top-0 right-0 w-full min-h-screen bg-[#393E46]">
+		<div className="box-border top-0 right-0 w-full min-h-screen bg-[#393E46] font-mono font-bold">
 			{(currentURL === "/login" || currentURL === "/signup") && <HomeNavBar />}
 			<Routes>
 				<Route path="/" element={<Login />} />
@@ -30,7 +31,7 @@ function App() {
 				<Route path="/new-restaurant" element={<AddRestaurant />}>
 					<Route path="step-1" element={<RestaurantBasicsDetails />} />
 					<Route path="step-2" element={<RestaurantTypesForm />} />
-					<Route path="step-3" element={<RestaurantTypesForm />} />
+					<Route path="step-3" element={<RestaurantImages />} />
 				</Route>
 			</Routes>
 			<Footer />

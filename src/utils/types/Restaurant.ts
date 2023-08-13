@@ -20,3 +20,10 @@ export interface Restaurant {
 	establishment: string;
 	openingHours: OpeningHour[];
 }
+
+export interface RestaurantImages {
+  ProfileImages: string[];
+  BannerImages: string[] | null;
+  MenuImages: string[];
+  FoodImages: string[];
+}

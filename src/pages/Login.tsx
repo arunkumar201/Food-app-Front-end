@@ -17,7 +17,7 @@ const Login = () => {
 	return (
 		<>
 			{/* main Login Div */}
-			<div className="flex w-full h-[100vh] bg1-[#FFFBF7] bg-[#F8EFD4]  md:h-full">
+			<div className="flex w-full h-[100vh] bg-[#A5C9CA]/80  md:h-full">
 				{/* Left Main Login Page */}
 				<div className="flex flex-col w-1/2 h-fit max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:flex-col">
 					<div className="flex items-center justify-start pb-2 ml-4">
@@ -27,16 +27,16 @@ const Login = () => {
 								src={logo}
 								alt="logo"
 							/>
-							<span className="text-lg font-bold text-gray-900 max-sm:text-center">
+							<span className="text-lg font-bold text-gray-700 max-sm:text-center">
 								Apna Food
 							</span>
 						</div>
 					</div>
 					<div className="flex flex-col items-center justify-start w-full h-full px-5 py-0 text-start">
-						<h1 className="w-full ml-2 text-2xl font-bold text-gray-800 text-start max-sm:text-center">
+						<h1 className="w-full ml-2 text-2xl font-bold text-gray-700 text-start max-sm:text-center">
 							Welcome Back!
 						</h1>
-						<p className="w-full mt-2 ml-2 text-lg font-semibold text-gray-400 text-start max-sm:text-center">
+						<p className="w-full mt-2 ml-2 text-lg font-semibold text-gray-600 text-start max-sm:text-center">
 							Please Login,Food just clicks away.
 						</p>
 					</div>

@@ -61,13 +61,13 @@ function LoginForm() {
 					onSubmit={handleSubmit}
 					className="h-full max-w-md mb-3 ml-4 mr-3 "
 				>
-					<h2 className="mb-8 text-xl font-bold text-gray-400 text-start max-sm:text-center">
+					<h2 className="mb-8 text-xl font-bold text-gray-700 text-start max-sm:text-center">
 						{isPhoneLogin ? "Login with Phone" : "Sign In with Email"}
 					</h2>
 					{isPhoneLogin ? (
 						<>
 							<div className="mb-6">
-								<label className="block mb-2 text-sm font-bold text-gray-400">
+								<label className="block mb-2 text-sm font-bold text-gray-700">
 									Country Code
 								</label>
 								<select
@@ -139,7 +139,7 @@ function LoginForm() {
 						<>
 							<div className="mb-6">
 								<label
-									className="block mb-2 text-base font-bold text-gray-400"
+									className="block mb-2 text-base font-bold text-gray-600"
 									htmlFor="email"
 								>
 									Email Address
@@ -172,7 +172,7 @@ function LoginForm() {
 							</div>
 							<div className="mb-6">
 								<label
-									className="block mb-2 text-base font-bold text-gray-400"
+									className="block mb-2 text-base font-bold text-gray-600"
 									htmlFor="password"
 								>
 									Password
@@ -200,7 +200,7 @@ function LoginForm() {
 									/>
 									<button
 										type="button"
-										className="absolute transform -translate-y-1/2 bg-transparent border-none top-1/2 right-2 text-gray-600rounded-full focus:outline-none"
+										className="absolute transform -translate-y-1/2 bg-transparent border-none top-1/2 right-2 text-gray-600rounded-full focus:outline-none text-gray-700"
 										onClick={() => setShowPassword(!showPassword)}
 									>
 										{showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -220,12 +220,12 @@ function LoginForm() {
 					<div className="flex flex-row items-center justify-between mb-3 text-base font-medium">
 						<div className="flex items-center mr-4">
 							<input type="checkbox" className="mr-2" />
-							<span className="text-sm">Remember Me</span>
+							<span className="text-sm text-gray-600">Remember Me</span>
 						</div>
 						<div className="flex items-center cursor-pointer">
-							<IoMdContact className="mr-1" size={17} />
+							<IoMdContact className="mr-1 text-gray-700" size={17} />
 							<span
-								className="text-sm text-[#EF4F5F]"
+								className="text-sm text-red-500"
 								onClick={() => setForgotModel(true)}
 							>
 								Forgot Password?

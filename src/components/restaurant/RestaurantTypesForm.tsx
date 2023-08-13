@@ -67,9 +67,12 @@ const RestaurantTypesForm = () => {
 			<div className="w-full flex justify-center gap-0 md:gap-[3rem] flex-wrap">
 				<div className="h-full p-4 text-white w-auto">
 					<div className="grid md:w-[22rem] w-[15rem] items-center gap-4">
-						<label htmlFor="name" className="RestaurantIcon">
+						<label htmlFor="name" className="RestaurantIcon ">
+							
 							<MdBusinessCenter />
+							<span>
 							Restaurant Name
+							</span>
 						</label>
 						<input
 							type="text"
@@ -107,7 +110,7 @@ const RestaurantTypesForm = () => {
 					</div>
 				</div>
 
-				<div className="w-[22rem] p-4 text-white max-h-[22rem] overflow-y-scroll overflow-x-hidden ">
+				<div className="w-[22rem] p-4 text-white max-h-[22rem] overflow-y-auto overflow-x-hidden ">
 						<h2 className="text-lg font-semibold  absolute z-10">Opening Hours</h2>
 					<div className="grid md:w-[12rem] w-[15rem] items-center gap-4 mt-9 -z-10">
 						{openingHours.map((openingHour, index) => (

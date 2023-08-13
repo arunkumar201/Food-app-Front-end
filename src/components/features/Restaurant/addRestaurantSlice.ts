@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
 	Restaurant,
 	RestaurantBasicsDetailsTypes,
+	RestaurantImages,
 } from "../../../utils/types/Restaurant";
 
 interface RestaurantState {
 	basics?: RestaurantBasicsDetailsTypes;
-	details: Restaurant ;
+	details: Restaurant;
+	Images: RestaurantImages;
 }
 const initialState: RestaurantState = {
 	basics: {
@@ -23,7 +25,13 @@ const initialState: RestaurantState = {
 		cuisine: "",
 		establishment: "",
 		openingHours: [],
-		name: ""
+		name: "",
+	},
+	Images: {
+		ProfileImages: [],
+		BannerImages: [],
+		MenuImages: [],
+		FoodImages: [],
 	},
 };
 
@@ -37,8 +45,11 @@ const restaurantSlice = createSlice({
 		setTypeDetails: (state, action: PayloadAction<Restaurant>) => {
 			state.details = action.payload;
 		},
+		setImages: (state, action: PayloadAction<RestaurantImages>) => {
+			state.Images = action.payload;
+		},
 	},
 });
 
-export const { setBasics, setTypeDetails } = restaurantSlice.actions;
+export const { setBasics, setTypeDetails, setImages } = restaurantSlice.actions;
 export default restaurantSlice.reducer;

@@ -5,8 +5,8 @@ import logo from "./../../assets/images/foods/logo.png";
 const Footer = () => {
 	return (
 		<>
-			<footer className="flex items-center justify-start flex-col paddings w-full gap-20 bg-zinc-900 p-8 ">
-				<div className="flex flex-col gap-12  w-full">
+			<footer className="font-mono flex items-center justify-start flex-col paddings w-full gap-20 bg-[#0C134F]/50 p-8 text-gray-300 font-bold">
+				<div className="flex flex-col gap-12  w-full ">
 					<div className="flex items-start flex-col">
 						<img src={logo} alt="logo" width={50} height={35} />
 						<p className="flex flex-start text-sm font-medium mt-5 max-w-lg">
@@ -56,7 +56,7 @@ const Footer = () => {
 				<div className="flex justify-between items-center max-sm:flex-col w-full text-sm font-normal">
 					<p>@ 2023 Apna Food. All rights reserved</p>
 					<p className="text-gray">
-						<span className="text-black font-semibold">10,000+</span> Restaurant Partners
+						<span className=" font-semibold">10,000+</span> Restaurant Partners
 			
 					</p>
 				</div>
